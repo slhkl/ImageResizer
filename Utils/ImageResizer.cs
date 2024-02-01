@@ -53,9 +53,9 @@ namespace Utils
             return null;
         }
 
-        public byte[] ResizedImage(string base64Image, int width = 512)
+        public string ResizedImage(string base64Image, int width = 512)
         {
-            return ResizedImage(Encoding.UTF8.GetBytes(base64Image), width);
+            return Convert.ToBase64String(ResizedImage(Convert.FromBase64String(base64Image), width));
         }
     }
 }
