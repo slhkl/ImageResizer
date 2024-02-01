@@ -1,4 +1,5 @@
 ﻿using SkiaSharp;
+using System.Text;
 
 namespace Utils
 {
@@ -12,11 +13,11 @@ namespace Utils
 
         #endregion
 
-        public byte[] ResizedImage(Stream stream, int width = 512)
+        public byte[] ResizedImage(Stream imageStream, int width = 512)
         {
             try
             {
-                SKBitmap image = SKBitmap.Decode(stream);
+                SKBitmap image = SKBitmap.Decode(imageStream);
 
                 var info = new SKImageInfo(width, (int)(width * (float)image.Height / image.Width));
                 image = image.Resize(info, SKFilterQuality.High);
@@ -32,11 +33,11 @@ namespace Utils
             return null;
         }
 
-        public byte[] ResizedImage(byte[] file, int width = 512)
+        public byte[] ResizedImage(byte[] imageBytes, int width = 512)
         {
             try
             {
-                SKBitmap image = SKBitmap.Decode(file);
+                SKBitmap image = SKBitmap.Decode(imageBytes);
 
                 var info = new SKImageInfo(width, (int)(width * (float)image.Height / image.Width));
                 image = image.Resize(info, SKFilterQuality.High);
@@ -50,6 +51,11 @@ namespace Utils
                 Console.WriteLine("ImageResizerEx: " + ex.Message);
             }
             return null;
+        }
+
+        public byte[] ResizedImage(string base64Image, int width = 512)
+        {
+            return ResizedImage(Encoding.UTF8.GetBytes(base64Image), width);
         }
     }
 }
